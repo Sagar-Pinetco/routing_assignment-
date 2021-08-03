@@ -19,6 +19,6 @@ Route::view('/insert', 'insert');
 Route::post('/insert', [UserController::class,'insert']);
 
 // Route::post('/', [UserController::class,'show']);
-Route::get('update/{id}', [UserController::class,'update']);
+Route::get('update/{id}', [UserController::class,'update'])->whereNumber('id');
 Route::post('updated',[UserController::class,'updated']);
 Route::get('delete/{id}',[UserController::class,'delete']);
