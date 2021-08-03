@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,11 @@ Route::post('/insert', [UserController::class,'insert']);
 Route::get('update/{id}', [UserController::class,'update'])->whereNumber('id');
 Route::post('updated',[UserController::class,'updated']);
 Route::get('delete/{id}',[UserController::class,'delete']);
+
+
+//Resource Controller
+
+Route::view('book_insert', 'bookinsert');
+// Route::post('book_insert', 'bookinsert');
+Route::resource('books', BookController::class);
+
