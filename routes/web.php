@@ -27,7 +27,10 @@ Route::get('delete/{id}',[UserController::class,'delete']);
 
 //Resource Controller
 
-Route::view('book_insert', 'bookinsert');
+// Route::view('book', 'book');
 // Route::post('book_insert', 'bookinsert');
 Route::resource('books', BookController::class);
+
+Route::get('books/search', [BookController::class,'index']);
+// Route::resource('getSearch',BookController::class);
 

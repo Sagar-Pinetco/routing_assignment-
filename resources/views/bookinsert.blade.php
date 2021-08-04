@@ -2,7 +2,12 @@
 <center>
     <h2>Insert Book Details</h2>
 
-<form action="{{ route('books.store') }}" method="POST">
+    @if (session('success'))
+
+    <h5 style="padding: 15px;background: green;color: white;width: 25%">{{ session('success') }}</h4>
+    @endif
+{{-- <form action="{{ route('books.store') }}" method="POST"> --}}
+<form action="{{ url('books')}}" method="POST">
     @csrf
         <input type="text" name="book_name" placeholder="Book Name" style="padding: 10px;background: transparent;border: 1px solid black;width: 25%">
         <br>
@@ -19,5 +24,6 @@
 
         <button type="submit" style="width: 20%;background: rgb(156, 84, 84);padding: 10px;font-weight: 700;font-size: 15px">Submit</button>
     </form>
+   <a href="{{ route('books.index') }}" style="text-decoration: none"> <h5 style="padding: 15px;background:darkgray;color: black;width: 25%">Back</h4></a>
 </center>
 </div>

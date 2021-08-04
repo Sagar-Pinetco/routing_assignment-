@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use SebastianBergmann\Environment\Console;
 
 class BookController extends Controller
 {
@@ -14,10 +15,18 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
-        $books = Book::latest()->paginate(5);
+        // return 'heloo';
 
-        return $books;
+        //
+        if(request('search')){
+            dd(request('search'));
+            // return "hello call";
+        }
+        $book_list = Book::paginate(5);
+
+        // return $book_data;
+        return view('book',['list'=>$book_list]);
+        // return view('book',compact("book_data"));
     }
 
     /**
@@ -28,6 +37,7 @@ class BookController extends Controller
     public function create()
     {
         //
+        return view('bookinsert');
     }
 
     /**
@@ -42,7 +52,9 @@ class BookController extends Controller
         // return $request->input();
         // $book = new Book();
         Book::create($request->all());
-        return redirect()->route("books.index")
+        // return redirect()->route("books.index")
+        // ->with('success','Book Inserted Successfully');
+        return redirect()->back()
         ->with('success','Book Inserted Successfully');
 
 
@@ -68,6 +80,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
+        return view('edit',compact('book'));
     }
 
     /**
@@ -79,7 +92,14 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        // Book::where('id', $book)->update($request->all());
+
+        $input = $request->all();
+        $book->find('id');
+        $book->update($input);
+
+          return redirect()->route("books.index")
+        ->with('success',$book->book_name.' Update Successfully');
     }
 
     /**
@@ -90,6 +110,24 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        $book->find('id');
+        $book->delete();
         //
+
+        return redirect()->route("books.index")
+        ->with('delete',$book->book_name.' delete Successfully');
+    }
+
+    public function getSearch($keyword)
+    {
+        return "hello";
+        // //get keywords input for search
+        // $keyword=  Input::get('q');
+
+        // //search that student in Database
+        //  $students= Student::find($keyword);
+
+        // //return display search result to user by using a view
+        // return View::make('selfservice')->with('student', $students);
     }
 }
