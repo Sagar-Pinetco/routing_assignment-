@@ -17,14 +17,30 @@
 <br>
 <br>
 
-<form  action="{{ route('books.index') }}" method="GET">
+<form action="{{ route('books.index') }}" method="GET">
     {{-- @csrf --}}
-    <input type="text"  name="search"  placeholder="Search.."/>
-    <button type="submit">Search</button>
-    </form>
 
-    <br>
-    <br>
+    <input type="text" name="search" value="{{ Request::get('search') }}" placeholder="Search by book name.." />
+    <button type="submit">Search</button>
+</form>
+<form action="{{ route('books.index') }}" method="GET">
+    {{-- @csrf --}}
+
+    {{-- route("tests.show", $test->id) --}}
+
+    <select name="authore" id="" onchange="">
+        @foreach ($list as $authore_name)
+            <option value="">{{ $authore_name->book_author }}</option>
+        @endforeach
+    </select>
+    <button type="submit">Search</button>
+</form>
+@if (Request::get('search'))
+    <a href="{{ route('books.index') }}"><button>Reset</button></a>
+@endif
+
+<br>
+<br>
 
 
 
@@ -46,16 +62,16 @@
             <td>
                 {{-- <a href="{{ route('books'.$data->id.'edit') }}">  <button>Update</button></a> --}}
                 <a href="{{ url('books/' . $data->id . '/edit') }}"> <button>Update</button></a>
-                <form action="{{ url('books/'.$data->id) }}" method="POST">
+                <form action="{{ url('books/' . $data->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
                 </form>
             </td>
         </tr>
-        @endforeach
+    @endforeach
 
 
-    </table>
+</table>
 
-    {{ $list->links() }}
+{{-- {{ $list->links() }} --}}

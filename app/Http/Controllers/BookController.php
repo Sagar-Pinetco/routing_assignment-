@@ -18,14 +18,21 @@ class BookController extends Controller
         // return 'heloo';
 
         //
+        $book_list = Book::all();//->groupBy('book_author');
+// return        $author_list = Book::all()->groupBy('book_author');
+// return $book_list->get()->groupBy('book_author');
+        // $book_list = Book->groupb;
+
         if(request('search')){
-            dd(request('search'));
+            // dd(request('search'));
+      $book_list =      Book::where('book_name','like','%'.request('search').'%')->get();
             // return "hello call";
         }
-        $book_list = Book::paginate(5);
+        // return $book_list;
+        // $book_list::paginate(5);
 
         // return $book_data;
-        return view('book',['list'=>$book_list]);
+        return view('book',['list'=> $book_list]);
         // return view('book',compact("book_data"));
     }
 
